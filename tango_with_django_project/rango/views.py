@@ -19,6 +19,12 @@ from django.contrib.auth import logout
 
 from datetime import datetime
 
+def get_server_side_cookie(request, cookie, default_val=None):
+    val = request.session.get(cookie)
+    if not val:
+        val = default_val
+    return val
+
 def visitor_cookie_handler(request):
     visits = int(request.COOKIES.get('visit', '1'))
 
@@ -157,15 +163,9 @@ def user_login(request):
 
 @login_required
 def restricted(request):
-    return HttpResponse(request, 'rango/restricted.html', {})
+    return render(request, 'rango/restricted.html', {})
 
 @login_required
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
-
-def get_server_side_cookie(request, cookie, default_val=None):
-    val = request.session.get(cookie)
-    if not val:
-        val = default_val
-    return val

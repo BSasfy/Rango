@@ -4,7 +4,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 
 import django
 django.setup()
-from rango.models import Category, Page
+from rango.models import Page, Category
 
 def populate():
     python_pages = [
@@ -29,13 +29,11 @@ def populate():
         {"title":"Flask",
          "url":"http://flask.pocoo.org", "views": 6} ]
 
-    cats = {"Python": {"pages": python_pages, "likes": 64, "views": 128},
+    cats = {"Python": {"pages": python_pages, "views": 128, "likes": 64},
             "Django": {"pages": django_pages,
-            "likes": 32,
-            "views": 64},
+            "views": 64, "likes": 32},
             "Other Frameworks": {"pages": other_pages,
-            "likes": 16,
-            "views": 32} }
+            "views": 32, "likes": 16} }
 
     for cat, cat_data in cats.items():
         c = add_cat(cat, cat_data["views"], cat_data["likes"])
